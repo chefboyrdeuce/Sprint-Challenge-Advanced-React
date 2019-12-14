@@ -1,26 +1,56 @@
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import axios from 'axios';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+
+class PlayerData extends React.Component {
+  constructor() {
+    super();
+
+    this.state = {
+      playerData: []
+    }
+    console.log(this.state);
+  }
+  
+  componentDidMount(){
+    axios.get(`http://localhost:5000/api/players`)
+    .then(response => {
+      this.setState({
+        playerData: response.data
+    })
+      console.log(response.data)
+      console.log(this.state)
+    })
+      .catch(error => {
+        console.error(error)
+      })
+  }
+
+  render(){
+    return(
+      this.state.playerData.map( (player)=>{
+        
+        return  (        
+          <div className="player-info">
+            <h3 className="player-name">{player.name}</h3>
+            <p className="player-country"> {player.country}</p>
+            <p className="player-searches"> {player.searches}</p>
+          </div>
+      )})
+    )
+}  
+  // render(){
+  //   return(
+  //     this.state.playerData.map( (player)=>{
+        
+  //       return  (        
+  //         <div className="player-info">
+  //           <h3 className="player-name">{player.name}</h3>
+  //           <p className="player-country"> {player.country}</p>
+  //         </div>
+  //   ) 
+  // }
 }
 
-export default App;
+export default PlayerData;
+
