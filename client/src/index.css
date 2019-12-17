@@ -11,3 +11,17 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
 }
+
+.player-info{
+  padding-left:100px;
+}
+
+#root{
+  padding-top:100px;
+}
+
+
+.dark-mode {
+  background-color: black;
+  color: white;
+}
