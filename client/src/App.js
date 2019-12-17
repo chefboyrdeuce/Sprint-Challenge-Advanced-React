@@ -1,15 +1,18 @@
 import React from 'react';
 import axios from 'axios';
+import useDarkMode from './darkmode';
+import DarkModeButton from './darkModeButton';
 
 
-class PlayerData extends React.Component {
+class App extends React.Component {
   constructor() {
     super();
-
+    
     this.state = {
       playerData: []
     }
     console.log(this.state);
+
   }
   
   componentDidMount(){
@@ -26,31 +29,43 @@ class PlayerData extends React.Component {
       })
   }
 
+
+
   render(){
+
+    const submitHandler = e => {
+      e.preventDefault(); //prevents the page from refreshing
+      console.log("Dark Mode button was clicked");
+    };
+
+
+    
     return(
-      this.state.playerData.map( (player)=>{
+      
+      <div>
+
+      <DarkModeButton />
+      
+     
+      {this.state.playerData.map( player=>{
         
-        return  (        
-          <div className="player-info">
-            <h3 className="player-name">{player.name}</h3>
-            <p className="player-country"> {player.country}</p>
-            <p className="player-searches"> {player.searches}</p>
+        return  (    
+        
+          <div> 
+    
+            <div className="player-info">
+              <h3 className="player-name">{player.name}</h3>
+              <p className="player-country"> {player.country}</p>
+              <p className="player-searches"> {player.searches}</p>
+            </div>
           </div>
-      )})
+      )})}
+      
+      </div>
     )
-}  
-  // render(){
-  //   return(
-  //     this.state.playerData.map( (player)=>{
-        
-  //       return  (        
-  //         <div className="player-info">
-  //           <h3 className="player-name">{player.name}</h3>
-  //           <p className="player-country"> {player.country}</p>
-  //         </div>
-  //   ) 
-  // }
+  }  
+
 }
 
-export default PlayerData;
+export default App;
 
